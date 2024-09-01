@@ -1,43 +1,20 @@
-# from typing import TYPE_CHECKING
+from fastapi import Depends, HTTPException, status
+from sqlalchemy.ext.asyncio import AsyncSession
+from database import db_helper
 
-# from fastapi import Depends
-
-# from fastapi_users.authentication.strategy.db import AccessTokenDatabase, DatabaseStrategy
-# from fastapi_users.authentication import AuthenticationBackend
-
-# from src.config import settings
-# from src.database import db_helper
-# from src.auth.models import User, AccessToken
-# from src.auth.transport import bearer_transport
-
-# if TYPE_CHECKING:
-#     from src.auth.models import AccessToken
-#     from sqlalchemy.ext.asyncio import AsyncSession
+from .models import User
+from .schemas import UserCreate
+from .service import get_by_email
 
 
-# async def get_user_db(
-#     session: "AsyncSession" = Depends(db_helper.session_getter),
-# ):
-#     yield User.get_db(session=session)
+from exceptions import CustomHTTPException
 
 
-# async def get_access_token_db(
-#     session: "AsyncSession" = Depends(db_helper.session_getter),
-# ):
-#     yield AccessToken.get_db(session=session)
-
-
-# def get_database_strategy(
-#     access_token_db: AccessTokenDatabase["AccessToken"] = Depends(get_access_token_db),
-# ) -> DatabaseStrategy:
-#     return DatabaseStrategy(
-#         database=access_token_db,
-#         lifetime_seconds=settings.access_token.lifetime_seconds,
-#     )
-
-
-# auth_backend = AuthenticationBackend(
-#     name="access-tokens-db",
-#     transport=bearer_transport,
-#     get_strategy=get_database_strategy,
-# )
+async def check_user_and_get_by_email(user_in: UserCreate, session: AsyncSession = Depends(db_helper.session_getter)) -> User:
+    user = await get_by_email(session=session, email=user_in.email)
+    if user:
+        raise CustomHTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="A user with this email already exists.",
+        )
+    return user
