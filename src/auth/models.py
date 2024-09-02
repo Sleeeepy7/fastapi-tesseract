@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 from models import Base
 from mixins import PrimaryKeyMixin, TimeStampMixin
 
+import bcrypt
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import Integer, ForeignKey, String, LargeBinary, Boolean, event
 
@@ -27,6 +28,9 @@ class User(Base, PrimaryKeyMixin, TimeStampMixin):
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False)
     token: Mapped[str | None] = mapped_column(String, nullable=True)
+
+    def check_password(self, password):
+        return bcrypt.checkpw(password.encode("utf-8"), self.password)
 
     @staticmethod
     def generate_token() -> str:
