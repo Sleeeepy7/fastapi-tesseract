@@ -39,7 +39,7 @@ class ExceptionMiddleware(BaseHTTPMiddleware):
                 content={
                     "status": False,
                     "error": "An unexpected error occurred.",
-                    "details": e.errors(),
+                    "details": {},
                 },
             )
         return response
