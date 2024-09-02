@@ -20,3 +20,21 @@ async def create(session: AsyncSession, user_in: (UserCreate | UserRegister)) ->
     await session.commit()
     await session.refresh(user)
     return user.token
+
+
+async def get_all_users(session: AsyncSession) -> list[User]:
+    result = await session.execute(select(User))
+    users = result.scalars().all()
+    return list(users)
+
+
+async def get(session: AsyncSession, user_id: int) -> Optional[User]:
+    result = await session.execute(select(User).filter(User.id == user_id))
+    user = result.scalars().first()
+    return user
+
+
+async def get_by_token(session: AsyncSession, token: str) -> Optional[User]:
+    result = await session.execute(select(User).filter(User.token == token))
+    user = result.scalars().first()
+    return user
