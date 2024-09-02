@@ -26,8 +26,8 @@ services:
       dockerfile: Dockerfile
     command: bash -c "python /app/src/main.py"
     # bash -c "alembic upgrade head && python /app/src/main.py"
-    stdin_open: true  # Для stdin чтобы был доступ к консоли
-    tty: true         # Для tty
+    stdin_open: true
+    tty: true
     env_file:
       - .env
     volumes:
