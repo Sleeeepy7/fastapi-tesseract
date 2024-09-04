@@ -38,3 +38,9 @@ async def get_by_token(session: AsyncSession, token: str) -> Optional[User]:
     result = await session.execute(select(User).filter(User.token == token))
     user = result.scalars().first()
     return user
+
+
+async def get_user_by_token(session: AsyncSession, auth_token: str) -> Optional[User]:
+    user = await session.execute(select(User).where(User.token == auth_token))
+    user = user.scalars().first()
+    return user
