@@ -35,7 +35,7 @@ class UserSubscription(Base, PrimaryKeyMixin, TimeStampMixin):
     end_date: Mapped[datetime] = mapped_column(DateTime, nullable=False)  # когда подписка истекает
 
     # связь с пользователем и планом подписки
-    user: Mapped["User"] = relationship("User", back_populates="subscriptions")
+    user: Mapped["User"] = relationship("User", back_populates="subscriptions", foreign_keys=[user_id])
     subscription_plan: Mapped["SubscriptionPlan"] = relationship("SubscriptionPlan")
 
     def is_active(self) -> bool:
