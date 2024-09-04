@@ -2,8 +2,8 @@ import secrets
 from typing import TYPE_CHECKING
 from datetime import datetime
 
-from models import Base
-from mixins import PrimaryKeyMixin, TimeStampMixin
+from src.models import Base
+from src.mixins import PrimaryKeyMixin, TimeStampMixin
 
 import bcrypt
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -12,7 +12,7 @@ from sqlalchemy import Integer, ForeignKey, String, LargeBinary, Boolean, event,
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
-    from auth.models import User
+    from src.auth.models import User
 
 
 class SubscriptionPlan(Base, PrimaryKeyMixin):
