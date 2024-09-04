@@ -24,7 +24,7 @@ class BaseResponse(BaseModel, Generic[T]):
     data: Optional[T] = None
 
 
-class ErrorResponse(BaseModel):
-    status: bool = False
-    error: str
-    details: Optional[List[Any]] = None
+# class ErrorResponse(BaseModel):
+#     status: bool = False
+#     error: str
+#     details: Optional[List[Any]] = None
