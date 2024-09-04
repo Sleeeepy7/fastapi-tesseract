@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from subscription.router import subscription_router
+from src.subscription.router import subscription_router
 
 router = APIRouter()
 

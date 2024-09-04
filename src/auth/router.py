@@ -20,8 +20,8 @@ from .dependencies import check_user_and_get_by_email, get_user_by_id
 from .permissions import IsAuthenticatedPermission, PermissionsDependency
 from .models import User
 
-from database import db_helper
-from exceptions import CustomHTTPException
+from src.database import db_helper
+from src.exceptions import CustomHTTPException
 
 
 auth_router = APIRouter()

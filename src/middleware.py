@@ -1,8 +1,11 @@
 from starlette.middleware.base import BaseHTTPMiddleware
+
 from fastapi import Request, status
 from fastapi.responses import JSONResponse
-from pydantic import ValidationError
 from fastapi.exceptions import RequestValidationError
+
+from pydantic import ValidationError
+
 import logging
 
 log = logging.getLogger(__name__)

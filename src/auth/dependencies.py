@@ -1,13 +1,13 @@
 from fastapi import Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-from database import db_helper
+from src.database import db_helper
 
 from .models import User
 from .schemas import UserCreate
 from .service import get_by_email, get
 
 
-from exceptions import CustomHTTPException
+from src.exceptions import CustomHTTPException
 
 
 async def check_user_and_get_by_email(

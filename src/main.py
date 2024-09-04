@@ -5,16 +5,14 @@ from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
 from fastapi.exceptions import RequestValidationError
 
-# from auth import auth_router
+from src.config import settings
+from src.database import db_helper
+from src.schemas import ErrorResponse
 
-from config import settings
-from database import db_helper
-from schemas import ErrorResponse
-
-from middleware import ExceptionMiddleware
-from exceptions import validation_exception_handler, CustomHTTPException, custom_http_exception_handler
-from auth import router as auth_router
-from subscription import router as subscription_router
+from src.middleware import ExceptionMiddleware
+from src.exceptions import validation_exception_handler, CustomHTTPException, custom_http_exception_handler
+from src.auth import router as auth_router
+from src.subscription import router as subscription_router
 
 
 @asynccontextmanager
@@ -43,12 +41,11 @@ main_app.add_exception_handler(CustomHTTPException, custom_http_exception_handle
 
 main_app.include_router(auth_router)
 main_app.include_router(subscription_router)
-# main_app.include_router(user_router)
 
-if __name__ == "__main__":
-    uvicorn.run(
-        "main:main_app",
-        host=settings.run.host,
-        port=settings.run.port,
-        reload=True,
-    )
+# if __name__ == "__main__":
+#     uvicorn.run(
+#         "main:main_app",
+#         host=settings.run.host,
+#         port=settings.run.port,
+#         reload=True,
+#     )

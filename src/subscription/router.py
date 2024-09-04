@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends
 
-from auth.permissions import PermissionsDependency, IsAuthenticatedPermission
+from src.auth.permissions import PermissionsDependency, IsAuthenticatedPermission
 
 
 subscription_router = APIRouter()

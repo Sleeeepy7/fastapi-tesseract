@@ -6,8 +6,8 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from .service import get_by_token
 
-from database import db_helper
-from exceptions import CustomHTTPException
+from src.database import db_helper
+from src.exceptions import CustomHTTPException
 
 
 async def get_user_from_token(token: str, session: AsyncSession):

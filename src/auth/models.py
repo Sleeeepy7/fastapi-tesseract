@@ -1,8 +1,8 @@
 import secrets
 from typing import TYPE_CHECKING
 
-from models import Base
-from mixins import PrimaryKeyMixin, TimeStampMixin
+from src.models import Base
+from src.mixins import PrimaryKeyMixin, TimeStampMixin
 
 import bcrypt
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -11,7 +11,7 @@ from sqlalchemy import Integer, ForeignKey, String, LargeBinary, Boolean, event,
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
-    from subscription.models import UserSubscription
+    from src.subscription.models import UserSubscription
 
 
 class User(Base, PrimaryKeyMixin, TimeStampMixin):
@@ -25,7 +25,7 @@ class User(Base, PrimaryKeyMixin, TimeStampMixin):
     # ссылка на активную подписку (id)
     active_subscription_id: Mapped[int | None] = mapped_column(Integer, ForeignKey("user_subscriptions.id"), nullable=True)
 
-    # ссылка на активную подписку (ссылка на сам обьект активной подписки (некий орм))
+    # # ссылка на активную подписку (ссылка на сам обьект активной подписки (некий орм))
     active_subscription: Mapped["UserSubscription"] = relationship(
         "UserSubscription", foreign_keys=[active_subscription_id], uselist=False
     )

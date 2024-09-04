@@ -24,12 +24,15 @@ services:
     build: 
       context: ./
       dockerfile: Dockerfile
-    command: bash -c "python /app/src/main.py"
+    # command: bash -c "python /app/src/main.py"
+    command: bash -c "uvicorn src.main:main_app --host 0.0.0.0 --port 8000 --reload"
     # bash -c "alembic upgrade head && python /app/src/main.py"
     stdin_open: true
     tty: true
     env_file:
       - .env
+    # environment:
+    #   - PYTHONPATH=/app/src
     volumes:
       - .:/app
     ports:

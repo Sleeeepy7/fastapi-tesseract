@@ -4,7 +4,7 @@ from pydantic import EmailStr, Field, field_validator
 
 from .utils import hash_password
 
-from schemas import ProjectBase, BaseResponse
+from src.schemas import ProjectBase, BaseResponse
 
 
 class UserBase(ProjectBase):
