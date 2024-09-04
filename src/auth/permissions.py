@@ -70,6 +70,13 @@ class IsAuthenticatedPermission(BasePermission):
         return user is not None
 
 
+class IsAdminPermission(BasePermission):
+    """Проверяет, администратор ли пользователь."""
+
+    def has_required_permissions(self, request: Request, user: dict) -> bool:
+        return user.is_superuser
+
+
 class PermissionsDependency:
     """Зависимость для проверки разрешений."""
 
