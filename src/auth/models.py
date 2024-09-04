@@ -31,7 +31,9 @@ class User(Base, PrimaryKeyMixin, TimeStampMixin):
     )
 
     # связь с историей подписок
-    subscriptions: Mapped["UserSubscription"] = relationship("UserSubscription", back_populates="user")
+    subscriptions: Mapped["UserSubscription"] = relationship(
+        "UserSubscription", back_populates="user", foreign_keys="[UserSubscription.user_id]"
+    )
 
     # связь с историей платежей
     # payments: Mapped[""] = relationship("PaymentHistory", back_populates="user")
