@@ -1,16 +1,11 @@
 from contextlib import asynccontextmanager
 
-import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import ORJSONResponse
-from fastapi.exceptions import RequestValidationError
 
-from src.config import settings
 from src.database import db_helper
-# from src.schemas import ErrorResponse
 
-# from src.middleware import ExceptionMiddleware
-from src.exceptions import validation_exception_handler, CustomHTTPException, custom_http_exception_handler
+from src.exceptions import CustomHTTPException, custom_http_exception_handler
 from src.auth import router as auth_router
 from src.subscription import router as subscription_router
 
