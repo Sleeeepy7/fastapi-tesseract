@@ -9,11 +9,12 @@ from .schemas import (
     UserLogin,
     UserCreate,
     UserRegisterResponse,
-    BaseResponse,
     UserLoginResponse,
     UserRegister,
     UserLogoutResponse,
 )
+
+from src.schemas import BaseResponse
 
 from .service import get_by_email, create, get_all_users, get
 from .dependencies import check_user_and_get_by_email, get_user_by_id
