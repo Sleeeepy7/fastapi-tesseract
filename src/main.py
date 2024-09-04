@@ -14,6 +14,7 @@ from schemas import ErrorResponse
 from middleware import ExceptionMiddleware
 from exceptions import validation_exception_handler, CustomHTTPException, custom_http_exception_handler
 from auth import router as auth_router
+from subscription import router as subscription_router
 
 
 @asynccontextmanager
@@ -41,6 +42,7 @@ main_app.add_exception_handler(RequestValidationError, validation_exception_hand
 main_app.add_exception_handler(CustomHTTPException, custom_http_exception_handler)
 
 main_app.include_router(auth_router)
+main_app.include_router(subscription_router)
 # main_app.include_router(user_router)
 
 if __name__ == "__main__":

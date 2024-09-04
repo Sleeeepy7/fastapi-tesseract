@@ -45,3 +45,7 @@ class UserRegisterResponse(BaseResponse[UserTokenData]):
 
 class UserLoginResponse(BaseResponse[UserTokenData]):
     pass
+
+
+class UserLogoutResponse(BaseResponse[dict]):
+    pass

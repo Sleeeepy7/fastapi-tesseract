@@ -4,7 +4,16 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from .schemas import UserRead, UserLogin, UserCreate, UserRegisterResponse, BaseResponse, UserLoginResponse, UserRegister
+from .schemas import (
+    UserRead,
+    UserLogin,
+    UserCreate,
+    UserRegisterResponse,
+    BaseResponse,
+    UserLoginResponse,
+    UserRegister,
+    UserLogoutResponse,
+)
 
 from .service import get_by_email, create, get_all_users, get
 from .dependencies import check_user_and_get_by_email, get_user_by_id
@@ -93,3 +102,9 @@ async def login(
     return UserLoginResponse(
         data={"token": access_token},
     )
+
+
+@auth_router.post("/logout", response_model=UserLogoutResponse)
+async def logout(response: Response) -> UserLogoutResponse:
+    response.delete_cookie(key="Authorization")
+    return UserLogoutResponse(data={"message": "Successfully logged out."})
