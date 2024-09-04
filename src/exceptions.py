@@ -9,16 +9,16 @@ import logging
 log = logging.getLogger(__name__)
 
 
-async def validation_exception_handler(request: Request, exc: RequestValidationError):
-    log.exception(exc)
-    return JSONResponse(
-        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
-        content={
-            "status": False,
-            "error": "Validation error",
-            "details": exc.errors(),
-        },
-    )
+# async def validation_exception_handler(request: Request, exc: RequestValidationError):
+#     log.exception(exc)
+#     return JSONResponse(
+#         status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+#         content={
+#             "status": False,
+#             "error": "Validation error",
+#             "details": exc.errors(),
+#         },
+#     )
 
 
 class CustomHTTPException(HTTPException):
