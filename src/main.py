@@ -7,9 +7,9 @@ from fastapi.exceptions import RequestValidationError
 
 from src.config import settings
 from src.database import db_helper
-from src.schemas import ErrorResponse
+# from src.schemas import ErrorResponse
 
-from src.middleware import ExceptionMiddleware
+# from src.middleware import ExceptionMiddleware
 from src.exceptions import validation_exception_handler, CustomHTTPException, custom_http_exception_handler
 from src.auth import router as auth_router
 from src.subscription import router as subscription_router
@@ -28,15 +28,15 @@ main_app = FastAPI(
     default_response_class=ORJSONResponse,
     lifespan=lifespan,
     root_path="/api/v1",
-    responses={
-        400: {"model": ErrorResponse, "description": "Bad Request"},
-        422: {"model": ErrorResponse, "description": "Validation Error"},
-        500: {"model": ErrorResponse, "description": "Internal Server Error"},
-    },
+    # responses={
+    #     400: {"model": ErrorResponse, "description": "Bad Request"},
+    #     422: {"model": ErrorResponse, "description": "Validation Error"},
+    #     500: {"model": ErrorResponse, "description": "Internal Server Error"},
+    # },
 )
 
-main_app.add_middleware(ExceptionMiddleware)
-main_app.add_exception_handler(RequestValidationError, validation_exception_handler)
+# main_app.add_middleware(ExceptionMiddleware)
+# main_app.add_exception_handler(RequestValidationError, validation_exception_handler)
 main_app.add_exception_handler(CustomHTTPException, custom_http_exception_handler)
 
 main_app.include_router(auth_router)
