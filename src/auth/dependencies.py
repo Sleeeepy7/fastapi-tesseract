@@ -13,18 +13,21 @@ from src.database import db_helper
 
 
 async def get_current_user(request: Request, session: AsyncSession = Depends(db_helper.session_getter)) -> User:
-    auth_header = request.cookies.get("Authorization")
-    auth_token = auth_header.split(" ")[1]
+    try:
+        auth_header = request.cookies.get("Authorization")
+        auth_token = auth_header.split(" ")[1]
 
-    if not auth_token or not auth_header.startswith("Bearer "):
-        raise CustomHTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication token was not provided")
+        if not auth_token or not auth_header.startswith("Bearer "):
+            raise CustomHTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication token was not provided")
 
-    user = await get_user_by_token(session, auth_token)
+        user = await get_user_by_token(session, auth_token)
 
-    if not user:
-        raise CustomHTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication token.")
+        if not user:
+            raise CustomHTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid authentication token.")
 
-    return user
+        return user
+    except Exception:
+        raise CustomHTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Authentication token was not provided.")
 
 
 async def check_user_and_get_by_email(
