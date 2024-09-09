@@ -5,11 +5,19 @@ from pydantic import EmailStr, Field, field_validator
 from src.schemas import ProjectBase, BaseResponse
 
 
+class SubscriptionPurchase(ProjectBase):
+    plan_id: int
+
+
 class PlanBase(ProjectBase):
     name: str
     description: str | None = None
     duration_days: int
     price: float
+
+
+class UserSubscriptionBase(ProjectBase):
+    name: str
 
 
 class SubscriptionPlanRead(PlanBase):
@@ -35,3 +43,7 @@ class SubscriptionPlanCreate(PlanBase):
 
 class SubscriptionPlanResponse(BaseResponse[SubscriptionPlanRead]):
     pass
+
+
+# class UserSubscriptionResponse(BaseResponse[UserSubscriptionRead]):
+#     pass
